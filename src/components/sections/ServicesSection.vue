@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { services } from '../../data/services'
 import SectionTitle from '../ui/SectionTitle.vue'
 import ServiceCard from '../ui/ServiceCard.vue'
@@ -6,6 +7,9 @@ import ServiceCard from '../ui/ServiceCard.vue'
 defineEmits<{
   book: [serviceId: string]
 }>()
+
+const popularService = computed(() => services.find((service) => service.popular))
+const regularServices = computed(() => services.filter((service) => !service.popular))
 </script>
 
 <template>
@@ -16,9 +20,14 @@ defineEmits<{
         title="Услуги"
         text="Прозрачная стоимость и спокойный темп работы: Алина закладывает достаточно времени на консультацию, подготовку и аккуратную проработку ресничного ряда."
       />
+
+      <div v-if="popularService" class="services-section__featured">
+        <ServiceCard :service="popularService" featured @book="$emit('book', $event)" />
+      </div>
+
       <div class="services-section__grid">
         <ServiceCard
-          v-for="service in services"
+          v-for="service in regularServices"
           :key="service.id"
           :service="service"
           @book="$emit('book', $event)"
@@ -29,11 +38,23 @@ defineEmits<{
 </template>
 
 <style scoped>
+.services-section__featured {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 1.25rem;
+}
+
 .services-section__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   align-items: stretch;
+}
+
+@media (max-width: 640px) {
+  .services-section__featured {
+    margin-bottom: 0.75rem;
+  }
 }
 
 @media (max-width: 980px) {

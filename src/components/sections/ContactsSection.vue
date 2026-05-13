@@ -27,8 +27,14 @@ const rightContacts = [
           text="Студия находится в районе улицы Боевой, рядом с удобными городскими маршрутами. Точный адрес отправляется после подтверждения записи."
         />
         <div class="contacts-section__links">
-          <a :href="studio.telegram" target="_blank" rel="noreferrer">Telegram</a>
-          <a :href="studio.vk" target="_blank" rel="noreferrer">VK</a>
+          <a class="social-link social-link--telegram" :href="studio.telegram" target="_blank" rel="noreferrer">
+            <span>TG</span>
+            <strong>Telegram</strong>
+          </a>
+          <a class="social-link social-link--vk" :href="studio.vk" target="_blank" rel="noreferrer">
+            <span>VK</span>
+            <strong>ВКонтакте</strong>
+          </a>
         </div>
       </div>
 
@@ -74,24 +80,57 @@ const rightContacts = [
   flex-wrap: wrap;
 }
 
-.contacts-section__links a {
+.social-link {
   display: inline-flex;
+  gap: 0.65rem;
   min-height: 46px;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: var(--color-primary-dark);
-  color: #fff;
+  color: var(--color-text);
   font-weight: 800;
-  padding: 0.82rem 1.1rem;
+  padding: 0.55rem 1rem 0.55rem 0.55rem;
+  box-shadow:
+    inset 0 0 0 1px var(--color-border),
+    0 12px 28px rgba(83, 57, 61, 0.08);
   transition:
     transform 0.2s ease,
-    background-color 0.2s ease;
+    box-shadow 0.2s ease;
 }
 
-.contacts-section__links a:hover {
-  background: #8f5263;
+.social-link span {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.social-link--telegram {
+  background: linear-gradient(135deg, rgba(229, 244, 255, 0.96), rgba(255, 255, 255, 0.9));
+}
+
+.social-link--telegram span {
+  background: #2aabee;
+}
+
+.social-link--vk {
+  background: linear-gradient(135deg, rgba(235, 242, 255, 0.96), rgba(255, 255, 255, 0.9));
+}
+
+.social-link--vk span {
+  background: #4c75a3;
+}
+
+.social-link:hover {
   transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px rgba(143, 90, 104, 0.2),
+    0 16px 34px rgba(83, 57, 61, 0.12);
 }
 
 .contacts-section__card {
@@ -169,7 +208,7 @@ const rightContacts = [
 }
 
 @media (max-width: 560px) {
-  .contacts-section__links a {
+  .social-link {
     flex: 1 1 130px;
   }
 

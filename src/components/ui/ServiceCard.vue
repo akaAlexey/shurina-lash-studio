@@ -3,6 +3,7 @@ import type { Service } from '../../data/services'
 
 defineProps<{
   service: Service
+  featured?: boolean
 }>()
 
 defineEmits<{
@@ -13,7 +14,7 @@ defineEmits<{
 <template>
   <article
     class="service-card"
-    :class="{ 'service-card--popular': service.popular }"
+    :class="{ 'service-card--popular': service.popular, 'service-card--featured': featured }"
     tabindex="0"
     @click="$emit('book', service.id)"
     @keydown.enter="$emit('book', service.id)"
@@ -50,14 +51,28 @@ defineEmits<{
 }
 
 .service-card--popular {
-  grid-column: 2 / span 1;
-  grid-row: span 2;
-  justify-content: center;
   background:
     linear-gradient(145deg, rgba(255, 246, 218, 0.92), rgba(255, 255, 255, 0.84)),
     var(--color-surface);
   border-color: #ecd79b;
   box-shadow: 0 22px 54px rgba(168, 127, 56, 0.16);
+}
+
+.service-card--featured {
+  width: min(100%, 620px);
+  min-height: 285px;
+  justify-content: center;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  animation: popularPulse 3.4s ease-in-out infinite;
+}
+
+.service-card--featured h3 {
+  font-size: clamp(1.55rem, 4vw, 2.1rem);
+}
+
+.service-card--featured .service-card__description {
+  max-width: 480px;
+  font-size: 1.02rem;
 }
 
 .service-card__badge {
@@ -143,10 +158,22 @@ defineEmits<{
   }
 }
 
-@media (max-width: 980px) {
-  .service-card--popular {
-    grid-column: 1 / -1;
-    grid-row: auto;
+@keyframes popularPulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 22px 54px rgba(168, 127, 56, 0.16);
+  }
+
+  50% {
+    transform: translateY(-2px) scale(1.012);
+    box-shadow: 0 28px 68px rgba(168, 127, 56, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card--featured {
+    animation: none;
   }
 }
 </style>

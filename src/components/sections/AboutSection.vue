@@ -157,6 +157,7 @@ const cards = [
   .about-section__media {
     display: grid;
     min-height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
   }
 
@@ -169,8 +170,14 @@ const cards = [
     border: 0;
   }
 
+  .about-section__main-image {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 11;
+  }
+
   .about-section__small-image {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
   }
 
   .about-section__cards {
