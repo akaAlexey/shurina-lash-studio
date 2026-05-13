@@ -3,14 +3,14 @@ import { studio } from '../../data/studio'
 import SectionTitle from '../ui/SectionTitle.vue'
 
 const contacts = [
-  ['Бренд', studio.brandName],
   ['Мастер', studio.masterName],
   ['Город', studio.city],
   ['Район', studio.district],
+  ['Ориентир', studio.landmark],
   ['Адрес', studio.address],
-  ['Примечание', studio.addressNote],
+  ['Формат', studio.addressNote],
   ['Телефон', studio.phone],
-  ['Режим работы', studio.workHours],
+  ['Режим', studio.workHours],
 ]
 </script>
 
@@ -20,8 +20,8 @@ const contacts = [
       <div>
         <SectionTitle
           eyebrow="Контакты"
-          title="Контакты"
-          text="Студия находится в спокойной части района улицы Боевой — не в шумном центре, но рядом с удобными остановками и городскими маршрутами. Точный адрес Алина отправляет после подтверждения записи, чтобы сохранять приватный формат приёма."
+          title="Где проходит приём"
+          text="Студия находится в районе улицы Боевой, рядом с удобными городскими маршрутами. Точный адрес отправляется после подтверждения записи."
         />
         <div class="contacts-section__links">
           <a :href="studio.telegram" target="_blank" rel="noreferrer">Telegram</a>
@@ -31,11 +31,11 @@ const contacts = [
 
       <div class="contacts-section__card">
         <div class="contacts-section__route">
-          <span class="eyebrow">Ориентир</span>
-          <h3>Район Жилгородка и улицы Боевой</h3>
+          <span class="eyebrow">Как добраться</span>
+          <h3>Ориентир — район Жилгородка и улицы Боевой</h3>
           <p>
-            Частная арендованная студия без открытой вывески и потока клиентов. После
-            подтверждения записи мастер отправляет точный адрес и короткую подсказку по
+            Приём проходит в частном кабинете мастера без потока клиентов. После
+            подтверждения записи Алина отправляет точный адрес и короткую подсказку по
             маршруту.
           </p>
         </div>
@@ -55,7 +55,7 @@ const contacts = [
 .contacts-section__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
-  gap: 2rem;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .contacts-section__links {
@@ -65,6 +65,10 @@ const contacts = [
 }
 
 .contacts-section__links a {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   background: var(--color-primary-dark);
   color: #fff;
@@ -81,11 +85,12 @@ const contacts = [
 }
 
 .contacts-section__card {
+  min-width: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
-  padding: clamp(1.2rem, 3vw, 2rem);
+  padding: clamp(1.1rem, 3vw, 2rem);
 }
 
 .contacts-section__route {
@@ -94,12 +99,12 @@ const contacts = [
     linear-gradient(135deg, rgba(207, 143, 162, 0.18), rgba(234, 209, 194, 0.38)),
     var(--color-surface-muted);
   margin-bottom: 1.4rem;
-  padding: 1.3rem;
+  padding: clamp(1rem, 3vw, 1.3rem);
 }
 
 .contacts-section__route h3 {
   margin-top: 0.5rem;
-  font-size: 1.55rem;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
   line-height: 1.15;
 }
 
@@ -117,7 +122,7 @@ const contacts = [
 
 .contacts-section dl div {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: minmax(96px, 140px) minmax(0, 1fr);
   gap: 1rem;
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 1rem;
@@ -134,17 +139,23 @@ const contacts = [
 }
 
 .contacts-section dd {
+  min-width: 0;
   margin: 0;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 900px) {
   .contacts-section__grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 560px) {
+  .contacts-section__links a {
+    flex: 1 1 130px;
+  }
+
   .contacts-section dl div {
     grid-template-columns: 1fr;
     gap: 0.25rem;

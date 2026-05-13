@@ -128,6 +128,10 @@ const emit = defineEmits<{
   grid-column: 1 / -1;
 }
 
+.booking-form__submit {
+  min-height: 52px;
+}
+
 @media (max-width: 680px) {
   .booking-form {
     grid-template-columns: 1fr;

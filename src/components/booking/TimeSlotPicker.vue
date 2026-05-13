@@ -32,6 +32,7 @@ const emit = defineEmits<{
 
 .time-slot-picker button {
   min-width: 88px;
+  min-height: 44px;
   border: 1px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-surface);
@@ -43,6 +44,12 @@ const emit = defineEmits<{
     border-color 0.2s ease,
     background-color 0.2s ease,
     transform 0.2s ease;
+}
+
+@media (max-width: 420px) {
+  .time-slot-picker button {
+    flex: 1 1 calc(50% - 0.55rem);
+  }
 }
 
 .time-slot-picker button:hover,

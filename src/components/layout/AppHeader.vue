@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const links = [
   { href: '#about', label: 'О мастере' },
   { href: '#services', label: 'Услуги' },
@@ -7,14 +9,39 @@ const links = [
   { href: '#reviews', label: 'Отзывы' },
   { href: '#contacts', label: 'Контакты' },
 ]
+
+const isMenuOpen = ref(false)
+
+function closeMenu() {
+  isMenuOpen.value = false
+}
 </script>
 
 <template>
   <header class="app-header">
     <div class="container app-header__inner">
-      <a class="app-header__logo" href="#hero">Shurina Lash Studio</a>
-      <nav class="app-header__nav" aria-label="Основная навигация">
-        <a v-for="link in links" :key="link.href" :href="link.href">{{ link.label }}</a>
+      <a class="app-header__logo" href="#hero" @click="closeMenu">Shurina Lash Studio</a>
+      <button
+        class="app-header__toggle"
+        type="button"
+        :aria-expanded="isMenuOpen"
+        aria-controls="main-navigation"
+        aria-label="Открыть меню"
+        @click="isMenuOpen = !isMenuOpen"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav
+        id="main-navigation"
+        class="app-header__nav"
+        :class="{ 'app-header__nav--open': isMenuOpen }"
+        aria-label="Основная навигация"
+      >
+        <a v-for="link in links" :key="link.href" :href="link.href" @click="closeMenu">
+          {{ link.label }}
+        </a>
       </nav>
     </div>
   </header>
@@ -31,6 +58,7 @@ const links = [
 }
 
 .app-header__inner {
+  position: relative;
   display: flex;
   min-height: 76px;
   align-items: center;
@@ -69,24 +97,67 @@ const links = [
   background: rgba(207, 143, 162, 0.12);
 }
 
-@media (max-width: 760px) {
+.app-header__toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
   .app-header__inner {
-    min-height: auto;
+    min-height: 64px;
+  }
+
+  .app-header__toggle {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.65rem;
-    padding: 0.85rem 0;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 999px;
+    background: var(--color-surface);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    cursor: pointer;
+  }
+
+  .app-header__toggle span {
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--color-text);
   }
 
   .app-header__nav {
-    justify-content: flex-start;
-    width: 100%;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: none;
+    width: min(280px, calc(100vw - 24px));
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background: rgba(255, 250, 246, 0.98);
+    box-shadow: var(--shadow-soft);
+    padding: 0.6rem;
+  }
+
+  .app-header__nav--open {
+    display: grid;
+    gap: 0.25rem;
   }
 
   .app-header__nav a {
-    background: rgba(255, 255, 255, 0.72);
-    font-size: 0.84rem;
-    padding: 0.45rem 0.65rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    padding: 0.7rem 0.85rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-header__logo {
+    font-size: 0.96rem;
   }
 }
 </style>

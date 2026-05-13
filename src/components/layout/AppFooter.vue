@@ -9,7 +9,7 @@ const year = new Date().getFullYear()
         <strong>Shurina Lash Studio</strong>
         <p>Наращивание ресниц в Астрахани</p>
       </div>
-      <p class="app-footer__demo">Демо-проект для портфолио. Персонаж и студия вымышлены.</p>
+      <p class="app-footer__demo">Демо-кейс для портфолио frontend-разработчика.</p>
       <span>© {{ year }}</span>
     </div>
   </footer>

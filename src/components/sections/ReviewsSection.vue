@@ -10,7 +10,7 @@ import SectionTitle from '../ui/SectionTitle.vue'
       <SectionTitle
         eyebrow="Отзывы"
         title="Что говорят клиентки"
-        text="Отзывы вымышлены и нужны только для демонстрации интерфейса портфолио-проекта."
+        text="Клиентки чаще всего отмечают спокойную атмосферу, аккуратную посадку ресниц и бережный подбор эффекта."
       />
       <div class="reviews-section__grid">
         <ReviewCard v-for="review in reviews" :key="review.id" :review="review" />
@@ -22,13 +22,13 @@ import SectionTitle from '../ui/SectionTitle.vue'
 <style scoped>
 .reviews-section__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
 @media (max-width: 1060px) {
   .reviews-section__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

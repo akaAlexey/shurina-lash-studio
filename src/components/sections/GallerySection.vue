@@ -9,7 +9,7 @@ import SectionTitle from '../ui/SectionTitle.vue'
       <SectionTitle
         eyebrow="Портфолио"
         title="Работы"
-        text="Работы, процесс и материалы на локальных demo-изображениях проекта."
+        text="Примеры эффектов, рабочий процесс и материалы, которые помогают заранее понять стиль мастера."
       />
       <div class="gallery-section__grid">
         <article v-for="item in galleryItems" :key="item.id" class="gallery-card">
@@ -30,7 +30,7 @@ import SectionTitle from '../ui/SectionTitle.vue'
 <style scoped>
 .gallery-section__grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -87,13 +87,7 @@ import SectionTitle from '../ui/SectionTitle.vue'
 
 @media (max-width: 1180px) {
   .gallery-section__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 780px) {
-  .gallery-section__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

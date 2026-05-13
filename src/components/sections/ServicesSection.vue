@@ -22,7 +22,7 @@ import ServiceCard from '../ui/ServiceCard.vue'
 <style scoped>
 .services-section__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
