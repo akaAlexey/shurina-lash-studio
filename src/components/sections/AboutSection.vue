@@ -22,13 +22,12 @@ const cards = [
 
       <div>
         <SectionTitle eyebrow="О мастере" title="О мастере" />
+        <div class="about-section__mobile-studio" aria-label="Атмосфера студии">
+          <img :src="studioRoom" alt="Небольшой кабинет студии" />
+          <img :src="studioLounge" alt="Зона ожидания в студии" />
+        </div>
         <div class="about-section__text">
           <p>
-            <img
-              class="about-section__text-room"
-              :src="studioRoom"
-              alt="Небольшой кабинет студии"
-            />
             Алина работает в небольшом арендованном кабинете и принимает по одному
             клиенту за раз. Большая часть записей приходит по рекомендациям: клиентки
             возвращаются за спокойной атмосферой, аккуратной посадкой ресниц и честным
@@ -129,12 +128,11 @@ const cards = [
   display: none;
 }
 
-.about-section__text-room {
+.about-section__mobile-studio {
   display: none;
 }
 
-.about-section__inline-portrait,
-.about-section__text-room {
+.about-section__inline-portrait {
   object-fit: cover;
 }
 
@@ -208,13 +206,23 @@ const cards = [
   }
 
   .about-section__text-room {
-    display: block;
-    float: right;
-    width: min(38%, 142px);
+    display: none;
+  }
+
+  .about-section__mobile-studio {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-section__mobile-studio img {
+    width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 18px;
     box-shadow: var(--shadow-soft);
-    margin: 0.25rem 0 0.55rem 1rem;
   }
 
   .about-section__text p::after {

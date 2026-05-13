@@ -14,6 +14,7 @@ defineEmits<{
     <div class="container hero-section__grid">
       <div class="hero-section__content">
         <span class="eyebrow">Астрахань, район улицы Боевой</span>
+        <img class="hero-section__inline-image" :src="heroImage" alt="Шурина Алина Алексеевна" />
         <h1>Наращивание ресниц в Астрахани с акцентом на естественную красоту</h1>
         <p>
           Шурина Алина Алексеевна принимает в уютном кабинете в районе улицы Боевой.
@@ -52,6 +53,10 @@ defineEmits<{
   font-size: clamp(2.05rem, 5vw, 4.45rem);
   line-height: 1.04;
   max-width: 850px;
+}
+
+.hero-section__inline-image {
+  display: none;
 }
 
 .hero-section__content p {
@@ -139,11 +144,32 @@ defineEmits<{
   }
 
   .hero-section__content h1 {
-    font-size: clamp(2rem, 10.5vw, 2.65rem);
+    font-size: clamp(1.85rem, 9vw, 2.35rem);
   }
 
   .hero-section__content p {
     font-size: 1rem;
+  }
+
+  .hero-section__inline-image {
+    display: block;
+    float: right;
+    width: min(38vw, 142px);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+    margin: 0.2rem 0 0.75rem 1rem;
+  }
+
+  .hero-section__media {
+    display: none;
+  }
+
+  .hero-section__content::after {
+    content: '';
+    display: block;
+    clear: both;
   }
 
   .hero-section__actions {
