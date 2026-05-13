@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import studioImage from '../../assets/images/studio/studio-interior.png'
+import alinaCloseup from '../../assets/images/hero/alina-closeup.webp'
+import studioLounge from '../../assets/images/studio/studio-lounge.webp'
+import studioRoom from '../../assets/images/studio/studio-room.webp'
 import SectionTitle from '../ui/SectionTitle.vue'
 
 const cards = [
@@ -12,9 +14,12 @@ const cards = [
 <template>
   <section id="about" class="section about-section">
     <div class="container about-section__grid">
-      <div class="about-section__media">
-        <img :src="studioImage" alt="Интерьер частной студии" />
+      <div class="about-section__media" aria-label="Мастер и атмосфера студии">
+        <img class="about-section__main-image" :src="alinaCloseup" alt="Алина за работой" />
+        <img class="about-section__small-image about-section__small-image--top" :src="studioRoom" alt="Небольшой кабинет студии" />
+        <img class="about-section__small-image about-section__small-image--bottom" :src="studioLounge" alt="Зона ожидания в студии" />
       </div>
+
       <div>
         <SectionTitle eyebrow="О мастере" title="О мастере" />
         <div class="about-section__text">
@@ -25,10 +30,10 @@ const cards = [
             отрабатывала технику на моделях и постепенно собрала постоянных клиенток.
           </p>
           <p>
-            Сейчас Алина арендует небольшую студию в Астрахани и принимает по
-            предварительной записи. В студии нет потока и суеты: один клиент, чистое
-            рабочее место, мягкий свет, спокойная музыка и достаточно времени на каждую
-            процедуру.
+            Алина не строила большой салон с вывеской и потоком клиентов. Она работает в
+            небольшом арендованном кабинете, где принимает по одному человеку за раз.
+            Большая часть записей приходит по рекомендациям: клиентки возвращаются за
+            спокойной атмосферой, аккуратной посадкой ресниц и честным подбором эффекта.
           </p>
         </div>
         <div class="about-section__cards">
@@ -42,22 +47,50 @@ const cards = [
 <style scoped>
 .about-section__grid {
   display: grid;
-  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1fr);
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1fr);
   align-items: center;
   gap: 3.5rem;
 }
 
 .about-section__media {
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  aspect-ratio: 4 / 5;
-  box-shadow: var(--shadow-soft);
+  position: relative;
+  min-height: 620px;
 }
 
-.about-section__media img {
+.about-section__main-image,
+.about-section__small-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  box-shadow: var(--shadow-soft);
+}
+
+.about-section__main-image {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 72%;
+  height: 78%;
+  border-radius: var(--radius-xl);
+}
+
+.about-section__small-image {
+  position: absolute;
+  border: 8px solid var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.about-section__small-image--top {
+  top: 6%;
+  right: 0;
+  width: 44%;
+  height: 32%;
+}
+
+.about-section__small-image--bottom {
+  right: 5%;
+  bottom: 0;
+  width: 54%;
+  height: 34%;
 }
 
 .about-section__text {
@@ -86,9 +119,34 @@ const cards = [
   padding: 1.1rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
   .about-section__grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-section__media {
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section__media {
+    display: grid;
+    min-height: auto;
+    gap: 0.8rem;
+  }
+
+  .about-section__main-image,
+  .about-section__small-image {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    border: 0;
+  }
+
+  .about-section__small-image {
+    aspect-ratio: 4 / 3;
   }
 
   .about-section__cards {

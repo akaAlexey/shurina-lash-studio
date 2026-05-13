@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import heroImage from '../../assets/images/hero/alina-hero.png'
+import heroImage from '../../assets/images/hero/alina-hero.webp'
 import BaseButton from '../ui/BaseButton.vue'
 
 const facts = ['4+ года практики', 'частная студия', 'запись онлайн']

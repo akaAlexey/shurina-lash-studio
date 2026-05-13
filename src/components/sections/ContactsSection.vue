@@ -3,13 +3,14 @@ import { studio } from '../../data/studio'
 import SectionTitle from '../ui/SectionTitle.vue'
 
 const contacts = [
-  ['Бренд', studio.brand],
-  ['Мастер', studio.master],
+  ['Бренд', studio.brandName],
+  ['Мастер', studio.masterName],
   ['Город', studio.city],
   ['Район', studio.district],
   ['Адрес', studio.address],
+  ['Примечание', studio.addressNote],
   ['Телефон', studio.phone],
-  ['Режим работы', studio.workingHours],
+  ['Режим работы', studio.workHours],
 ]
 </script>
 
@@ -20,7 +21,7 @@ const contacts = [
         <SectionTitle
           eyebrow="Контакты"
           title="Контакты"
-          text="Точный адрес частной студии отправляется после подтверждения записи. Ссылки ниже демонстрационные."
+          text="Студия находится в спокойной части района улицы Боевой — не в шумном центре, но рядом с удобными остановками и городскими маршрутами. Точный адрес Алина отправляет после подтверждения записи, чтобы сохранять приватный формат приёма."
         />
         <div class="contacts-section__links">
           <a :href="studio.telegram" target="_blank" rel="noreferrer">Telegram</a>
@@ -29,6 +30,16 @@ const contacts = [
       </div>
 
       <div class="contacts-section__card">
+        <div class="contacts-section__route">
+          <span class="eyebrow">Ориентир</span>
+          <h3>Район Жилгородка и улицы Боевой</h3>
+          <p>
+            Частная арендованная студия без открытой вывески и потока клиентов. После
+            подтверждения записи мастер отправляет точный адрес и короткую подсказку по
+            маршруту.
+          </p>
+        </div>
+
         <dl>
           <div v-for="[label, value] in contacts" :key="label">
             <dt>{{ label }}</dt>
@@ -75,6 +86,27 @@ const contacts = [
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
   padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.contacts-section__route {
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(207, 143, 162, 0.18), rgba(234, 209, 194, 0.38)),
+    var(--color-surface-muted);
+  margin-bottom: 1.4rem;
+  padding: 1.3rem;
+}
+
+.contacts-section__route h3 {
+  margin-top: 0.5rem;
+  font-size: 1.55rem;
+  line-height: 1.15;
+}
+
+.contacts-section__route p {
+  margin-top: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
 }
 
 .contacts-section dl {
