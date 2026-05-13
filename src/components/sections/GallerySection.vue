@@ -68,6 +68,12 @@ function openBooking(title: string) {
     box-shadow 0.24s ease;
 }
 
+.gallery-card:nth-child(even) {
+  background:
+    linear-gradient(180deg, rgba(255, 249, 240, 0.78), rgba(255, 255, 255, 0.96)),
+    var(--color-surface);
+}
+
 .gallery-card:hover,
 .gallery-card:focus-visible {
   transform: translateY(-4px);

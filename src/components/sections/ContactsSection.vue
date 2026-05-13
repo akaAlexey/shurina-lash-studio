@@ -143,6 +143,15 @@ const rightContacts = [
   padding: clamp(1.1rem, 3vw, 2rem);
 }
 
+.contacts-section__card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-primary), #efd890, var(--color-accent));
+  margin-bottom: 1rem;
+}
+
 .contacts-section__route {
   border-radius: var(--radius-lg);
   background:

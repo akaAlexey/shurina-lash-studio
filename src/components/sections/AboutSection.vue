@@ -171,6 +171,15 @@ const cards = [
 }
 
 @media (max-width: 640px) {
+  .about-section {
+    padding-top: 30px;
+    padding-bottom: 34px;
+  }
+
+  .about-section__grid {
+    gap: 1.6rem;
+  }
+
   .about-section__media {
     display: none;
     min-height: auto;
@@ -213,7 +222,7 @@ const cards = [
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   .about-section__mobile-studio img {
@@ -233,6 +242,12 @@ const cards = [
 
   .about-section__cards {
     grid-template-columns: 1fr;
+    gap: 0.65rem;
+    margin-top: 1.05rem;
+  }
+
+  .about-section__cards article {
+    padding: 0.92rem 1rem;
   }
 }
 </style>

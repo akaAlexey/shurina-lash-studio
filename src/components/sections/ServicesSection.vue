@@ -44,6 +44,10 @@ const regularServices = computed(() => services.filter((service) => !service.pop
   margin-bottom: 1.25rem;
 }
 
+.services-section :deep(.section-title) {
+  margin-bottom: 26px;
+}
+
 .services-section__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -52,8 +56,12 @@ const regularServices = computed(() => services.filter((service) => !service.pop
 }
 
 @media (max-width: 640px) {
+  .services-section {
+    padding-top: 34px;
+  }
+
   .services-section__featured {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.65rem;
   }
 }
 

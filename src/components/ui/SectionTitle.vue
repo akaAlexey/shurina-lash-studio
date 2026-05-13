@@ -33,4 +33,20 @@ defineProps<{
   font-size: 1.05rem;
   line-height: 1.75;
 }
+
+@media (max-width: 560px) {
+  .section-title {
+    margin-bottom: 22px;
+  }
+
+  .section-title h2 {
+    font-size: clamp(1.85rem, 9vw, 2.45rem);
+  }
+
+  .section-title p {
+    margin-top: 0.75rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+}
 </style>

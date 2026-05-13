@@ -140,7 +140,7 @@ defineEmits<{
 
 @media (max-width: 520px) {
   .hero-section {
-    padding: 42px 0 52px;
+    padding: 32px 0 26px;
   }
 
   .hero-section__content h1 {
@@ -174,6 +174,13 @@ defineEmits<{
 
   .hero-section__actions {
     flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.4rem;
+  }
+
+  .hero-section__facts {
+    gap: 0.55rem;
+    margin-top: 1.25rem;
   }
 
   .hero-section__facts li {
