@@ -13,6 +13,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  width: 100%;
   overflow-x: hidden;
   color: var(--color-text);
   background:
@@ -57,11 +58,13 @@ p {
 
 #app {
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 .container {
-  width: min(100% - clamp(24px, 5vw, 48px), var(--container-width));
+  width: min(100%, var(--container-width));
   margin-inline: auto;
+  padding-inline: clamp(12px, 4vw, 32px);
 }
 
 .section {

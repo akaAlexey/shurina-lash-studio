@@ -18,6 +18,44 @@ const emit = defineEmits<{
   'update:comment': [value: string]
   submit: []
 }>()
+
+function formatRussianPhone(value: string) {
+  let digits = value.replace(/\D/g, '')
+
+  if (digits.startsWith('8') || digits.startsWith('7')) {
+    digits = digits.slice(1)
+  }
+
+  const local = digits.slice(0, 10)
+
+  if (!local) {
+    return ''
+  }
+
+  let result = `+7 (${local.slice(0, 3)}`
+
+  if (local.length >= 3) {
+    result += ')'
+  }
+
+  if (local.length > 3) {
+    result += ` ${local.slice(3, 6)}`
+  }
+
+  if (local.length > 6) {
+    result += `-${local.slice(6, 8)}`
+  }
+
+  if (local.length > 8) {
+    result += `-${local.slice(8, 10)}`
+  }
+
+  return result
+}
+
+function updatePhone(value: string) {
+  emit('update:phone', formatRussianPhone(value))
+}
 </script>
 
 <template>
@@ -55,8 +93,10 @@ const emit = defineEmits<{
         :value="phone"
         :class="{ invalid: errors.phone }"
         type="tel"
+        inputmode="tel"
+        autocomplete="tel"
         placeholder="+7 (___) ___-__-__"
-        @input="emit('update:phone', ($event.target as HTMLInputElement).value)"
+        @input="updatePhone(($event.target as HTMLInputElement).value)"
       />
       <small v-if="errors.phone">{{ errors.phone }}</small>
     </label>

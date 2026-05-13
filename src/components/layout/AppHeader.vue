@@ -131,12 +131,13 @@ function closeMenu() {
   .app-header__nav {
     position: absolute;
     top: calc(100% + 8px);
+    left: 0;
     right: 0;
     display: none;
-    width: min(280px, calc(100vw - 24px));
+    width: auto;
     border: 1px solid var(--color-border);
     border-radius: 22px;
-    background: rgba(255, 250, 246, 0.98);
+    background: var(--color-bg);
     box-shadow: var(--shadow-soft);
     padding: 0.6rem;
   }
@@ -144,12 +145,16 @@ function closeMenu() {
   .app-header__nav--open {
     display: grid;
     gap: 0.25rem;
+    align-items: stretch;
+    justify-content: stretch;
   }
 
   .app-header__nav a {
+    width: 100%;
     min-height: 44px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     font-size: 0.95rem;
     padding: 0.7rem 0.85rem;
   }

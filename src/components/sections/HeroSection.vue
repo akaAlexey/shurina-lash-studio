@@ -33,20 +33,20 @@ const facts = ['4+ года практики', 'приём по записи', '
 
 <style scoped>
 .hero-section {
-  padding: 74px 0 92px;
+  padding: 58px 0 64px;
 }
 
 .hero-section__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
   align-items: center;
-  gap: 3rem;
+  gap: clamp(2rem, 5vw, 3.5rem);
 }
 
 .hero-section__content h1 {
   margin-top: 0.75rem;
-  font-size: clamp(2.2rem, 5.8vw, 5rem);
-  line-height: 1;
+  font-size: clamp(2.05rem, 5vw, 4.45rem);
+  line-height: 1.04;
   max-width: 850px;
 }
 
@@ -113,11 +113,11 @@ const facts = ['4+ года практики', 'приём по записи', '
 
 @media (max-width: 520px) {
   .hero-section {
-    padding: 48px 0 68px;
+    padding: 42px 0 52px;
   }
 
   .hero-section__content h1 {
-    font-size: clamp(2rem, 12vw, 2.85rem);
+    font-size: clamp(2rem, 10.5vw, 2.65rem);
   }
 
   .hero-section__content p {
@@ -126,6 +126,11 @@ const facts = ['4+ года практики', 'приём по записи', '
 
   .hero-section__actions {
     flex-direction: column;
+  }
+
+  .hero-section__facts li {
+    flex: 1 1 100%;
+    text-align: center;
   }
 }
 </style>
