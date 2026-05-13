@@ -29,6 +29,9 @@ const cards = [
             возвращаются за спокойной атмосферой, аккуратной посадкой ресниц и честным
             подбором эффекта.
           </p>
+          <figure class="about-section__inline-portrait">
+            <img :src="alinaCloseup" alt="Алина за работой" />
+          </figure>
           <p>
             В работе Алина делает акцент на чистоте, одноразовых расходниках и комфортном
             темпе процедуры. Перед записью можно обсудить желаемый результат: от
@@ -119,6 +122,16 @@ const cards = [
   line-height: 1.75;
 }
 
+.about-section__inline-portrait {
+  display: none;
+}
+
+.about-section__inline-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .about-section__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -171,13 +184,23 @@ const cards = [
   }
 
   .about-section__main-image {
-    grid-column: 1 / -1;
-    aspect-ratio: 16 / 11;
+    display: none;
   }
 
   .about-section__small-image {
     aspect-ratio: 1 / 1;
     border-radius: 20px;
+  }
+
+  .about-section__inline-portrait {
+    display: block;
+    overflow: hidden;
+    width: min(68%, 230px);
+    aspect-ratio: 4 / 5;
+    justify-self: center;
+    border-radius: 22px;
+    box-shadow: var(--shadow-soft);
+    margin: 0.1rem 0;
   }
 
   .about-section__cards {
