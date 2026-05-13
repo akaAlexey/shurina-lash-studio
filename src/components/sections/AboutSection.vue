@@ -64,6 +64,25 @@ const cards = [
   box-shadow: var(--shadow-soft);
 }
 
+@supports (animation-timeline: view()) {
+  .about-section__main-image,
+  .about-section__small-image {
+    animation: softImageLift both ease-out;
+    animation-timeline: view();
+    animation-range: entry 0% cover 58%;
+  }
+}
+
+@keyframes softImageLift {
+  from {
+    transform: scale(0.985);
+  }
+
+  to {
+    transform: scale(1.015);
+  }
+}
+
 .about-section__main-image {
   position: absolute;
   inset: 0 auto auto 0;

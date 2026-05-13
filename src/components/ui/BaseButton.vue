@@ -35,7 +35,8 @@ withDefaults(defineProps<Props>(), {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    filter 0.2s ease;
 }
 
 .base-button:hover {
@@ -44,19 +45,23 @@ withDefaults(defineProps<Props>(), {
 
 .base-button--primary {
   color: #fff;
-  background: var(--color-primary-dark);
-  box-shadow: 0 12px 24px rgba(159, 95, 114, 0.24);
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  box-shadow:
+    0 14px 28px rgba(143, 90, 104, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .base-button--primary:hover {
-  background: #8f5263;
-  box-shadow: 0 18px 34px rgba(159, 95, 114, 0.28);
+  filter: saturate(1.06) brightness(1.02);
+  box-shadow: 0 18px 34px rgba(143, 90, 104, 0.34);
 }
 
 .base-button--secondary {
   color: var(--color-primary-dark);
-  background: var(--color-surface);
-  box-shadow: inset 0 0 0 1px var(--color-border);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow:
+    inset 0 0 0 1px var(--color-border),
+    0 8px 20px rgba(83, 57, 61, 0.06);
 }
 
 .base-button--secondary:hover {

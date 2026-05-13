@@ -3,6 +3,10 @@ import heroImage from '../../assets/images/hero/alina-hero.webp'
 import BaseButton from '../ui/BaseButton.vue'
 
 const facts = ['4+ года практики', 'приём по записи', 'индивидуальный подбор']
+
+defineEmits<{
+  book: []
+}>()
 </script>
 
 <template>
@@ -17,7 +21,7 @@ const facts = ['4+ года практики', 'приём по записи', '
           перегруза и спешки.
         </p>
         <div class="hero-section__actions">
-          <BaseButton href="#booking">Записаться онлайн</BaseButton>
+          <BaseButton @click="$emit('book')">Записаться онлайн</BaseButton>
           <BaseButton href="#gallery" variant="secondary">Посмотреть работы</BaseButton>
         </div>
         <ul class="hero-section__facts" aria-label="Краткие факты">
@@ -100,6 +104,24 @@ const facts = ['4+ года практики', 'приём по записи', '
   object-fit: cover;
 }
 
+@supports (animation-timeline: view()) {
+  .hero-section__media img {
+    animation: heroImageScale both ease-out;
+    animation-timeline: view();
+    animation-range: entry 0% cover 70%;
+  }
+}
+
+@keyframes heroImageScale {
+  from {
+    transform: scale(1.035);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 900px) {
   .hero-section__grid {
     grid-template-columns: 1fr;
@@ -129,8 +151,16 @@ const facts = ['4+ года практики', 'приём по записи', '
   }
 
   .hero-section__facts li {
-    flex: 1 1 100%;
+    flex: 1 1 calc(50% - 0.7rem);
+    padding: 0.62rem 0.7rem;
+    font-size: 0.86rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-section__facts li {
+    flex-basis: 100%;
   }
 }
 </style>

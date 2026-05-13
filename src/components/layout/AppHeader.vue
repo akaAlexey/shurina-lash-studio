@@ -5,15 +5,23 @@ const links = [
   { href: '#about', label: 'О мастере' },
   { href: '#services', label: 'Услуги' },
   { href: '#gallery', label: 'Работы' },
-  { href: '#booking', label: 'Запись' },
   { href: '#reviews', label: 'Отзывы' },
   { href: '#contacts', label: 'Контакты' },
 ]
+
+const emit = defineEmits<{
+  book: []
+}>()
 
 const isMenuOpen = ref(false)
 
 function closeMenu() {
   isMenuOpen.value = false
+}
+
+function openBooking() {
+  closeMenu()
+  emit('book')
 }
 </script>
 
@@ -42,6 +50,7 @@ function closeMenu() {
         <a v-for="link in links" :key="link.href" :href="link.href" @click="closeMenu">
           {{ link.label }}
         </a>
+        <button class="app-header__book" type="button" @click="openBooking">Запись</button>
       </nav>
     </div>
   </header>
@@ -90,6 +99,25 @@ function closeMenu() {
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
+}
+
+.app-header__book {
+  min-height: 40px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0.55rem 0.95rem;
+  box-shadow: 0 10px 22px rgba(151, 86, 104, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.app-header__book:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(151, 86, 104, 0.28);
 }
 
 .app-header__nav a:hover {
@@ -157,6 +185,12 @@ function closeMenu() {
     justify-content: flex-start;
     font-size: 0.95rem;
     padding: 0.7rem 0.85rem;
+  }
+
+  .app-header__book {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 0.25rem;
   }
 }
 
