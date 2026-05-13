@@ -24,15 +24,18 @@ const cards = [
         <SectionTitle eyebrow="О мастере" title="О мастере" />
         <div class="about-section__text">
           <p>
+            <img
+              class="about-section__text-room"
+              :src="studioRoom"
+              alt="Небольшой кабинет студии"
+            />
             Алина работает в небольшом арендованном кабинете и принимает по одному
             клиенту за раз. Большая часть записей приходит по рекомендациям: клиентки
             возвращаются за спокойной атмосферой, аккуратной посадкой ресниц и честным
             подбором эффекта.
           </p>
-          <figure class="about-section__inline-portrait">
-            <img :src="alinaCloseup" alt="Алина за работой" />
-          </figure>
           <p>
+            <img class="about-section__inline-portrait" :src="alinaCloseup" alt="Алина за работой" />
             В работе Алина делает акцент на чистоте, одноразовых расходниках и комфортном
             темпе процедуры. Перед записью можно обсудить желаемый результат: от
             максимально натуральной классики до более выразительного объёма.
@@ -126,9 +129,12 @@ const cards = [
   display: none;
 }
 
-.about-section__inline-portrait img {
-  width: 100%;
-  height: 100%;
+.about-section__text-room {
+  display: none;
+}
+
+.about-section__inline-portrait,
+.about-section__text-room {
   object-fit: cover;
 }
 
@@ -168,10 +174,8 @@ const cards = [
 
 @media (max-width: 640px) {
   .about-section__media {
-    display: grid;
+    display: none;
     min-height: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
   }
 
   .about-section__main-image,
@@ -194,13 +198,29 @@ const cards = [
 
   .about-section__inline-portrait {
     display: block;
+    float: right;
     overflow: hidden;
-    width: min(68%, 230px);
+    width: min(42%, 150px);
     aspect-ratio: 4 / 5;
-    justify-self: center;
-    border-radius: 22px;
+    border-radius: 18px;
     box-shadow: var(--shadow-soft);
-    margin: 0.1rem 0;
+    margin: 0.35rem 0 0.6rem 1rem;
+  }
+
+  .about-section__text-room {
+    display: block;
+    float: right;
+    width: min(38%, 142px);
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+    margin: 0.25rem 0 0.55rem 1rem;
+  }
+
+  .about-section__text p::after {
+    content: '';
+    display: block;
+    clear: both;
   }
 
   .about-section__cards {
