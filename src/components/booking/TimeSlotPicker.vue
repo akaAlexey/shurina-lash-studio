@@ -2,6 +2,7 @@
 defineProps<{
   slots: string[]
   modelValue: string
+  disabledSlots?: string[]
 }>()
 
 const emit = defineEmits<{
@@ -15,10 +16,12 @@ const emit = defineEmits<{
       v-for="slot in slots"
       :key="slot"
       type="button"
+      :disabled="disabledSlots?.includes(slot)"
       :class="{ active: modelValue === slot }"
       @click="emit('update:modelValue', slot)"
     >
       {{ slot }}
+      <span v-if="disabledSlots?.includes(slot)">занято</span>
     </button>
   </div>
 </template>
@@ -46,6 +49,15 @@ const emit = defineEmits<{
     transform 0.2s ease;
 }
 
+.time-slot-picker button span {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 0.2rem;
+}
+
 @media (max-width: 420px) {
   .time-slot-picker button {
     flex: 1 1 calc(50% - 0.55rem);
@@ -58,5 +70,11 @@ const emit = defineEmits<{
   background: #fff2f3;
   color: var(--color-primary-dark);
   transform: translateY(-2px);
+}
+
+.time-slot-picker button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
 }
 </style>

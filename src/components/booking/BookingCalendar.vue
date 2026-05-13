@@ -4,6 +4,7 @@ defineProps<{
     value: string
     day: string
     weekday: string
+    isToday?: boolean
   }[]
   modelValue: string
 }>()
@@ -24,6 +25,7 @@ const emit = defineEmits<{
     >
       <span>{{ date.weekday }}</span>
       <strong>{{ date.day }}</strong>
+      <em v-if="date.isToday">сегодня</em>
     </button>
   </div>
 </template>
@@ -66,6 +68,15 @@ const emit = defineEmits<{
 .booking-calendar strong {
   display: block;
   margin-top: 0.35rem;
+}
+
+.booking-calendar em {
+  display: block;
+  color: var(--color-primary-dark);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 800;
+  margin-top: 0.2rem;
 }
 
 @media (max-width: 720px) {

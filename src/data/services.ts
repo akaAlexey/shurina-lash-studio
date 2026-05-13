@@ -4,9 +4,18 @@ export interface Service {
   duration: string
   price: string
   description: string
+  popular?: boolean
 }
 
 export const services: Service[] = [
+  {
+    id: 'two-d',
+    title: '2D',
+    duration: '2 ч',
+    price: '2 200 ₽',
+    description: 'Популярный объем для заметного, но мягкого взгляда.',
+    popular: true,
+  },
   {
     id: 'classic',
     title: 'Классическое наращивание',
@@ -20,13 +29,6 @@ export const services: Service[] = [
     duration: '1 ч 50 мин',
     price: '1 900 ₽',
     description: 'Чуть больше выразительности без перегруза.',
-  },
-  {
-    id: 'two-d',
-    title: '2D',
-    duration: '2 ч',
-    price: '2 200 ₽',
-    description: 'Популярный объем для заметного, но мягкого взгляда.',
   },
   {
     id: 'three-d',

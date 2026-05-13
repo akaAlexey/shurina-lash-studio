@@ -11,8 +11,15 @@ defineEmits<{
 </script>
 
 <template>
-  <article class="service-card" tabindex="0" @click="$emit('book', service.id)" @keydown.enter="$emit('book', service.id)">
+  <article
+    class="service-card"
+    :class="{ 'service-card--popular': service.popular }"
+    tabindex="0"
+    @click="$emit('book', service.id)"
+    @keydown.enter="$emit('book', service.id)"
+  >
     <div>
+      <span v-if="service.popular" class="service-card__badge">Самая популярная</span>
       <p class="service-card__duration">{{ service.duration }}</p>
       <h3>{{ service.title }}</h3>
       <p class="service-card__description">{{ service.description }}</p>
@@ -40,6 +47,29 @@ defineEmits<{
     transform 0.2s ease,
     box-shadow 0.2s ease,
     border-color 0.2s ease;
+}
+
+.service-card--popular {
+  grid-column: 2 / span 1;
+  grid-row: span 2;
+  justify-content: center;
+  background:
+    linear-gradient(145deg, rgba(255, 246, 218, 0.92), rgba(255, 255, 255, 0.84)),
+    var(--color-surface);
+  border-color: #ecd79b;
+  box-shadow: 0 22px 54px rgba(168, 127, 56, 0.16);
+}
+
+.service-card__badge {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  background: #f3d98d;
+  color: #6e5220;
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin-bottom: 0.9rem;
+  padding: 0.45rem 0.65rem;
 }
 
 .service-card:hover {
@@ -110,6 +140,13 @@ defineEmits<{
     align-items: flex-start;
     flex-direction: column;
     gap: 0.7rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .service-card--popular {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 </style>

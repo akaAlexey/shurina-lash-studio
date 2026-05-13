@@ -2,11 +2,14 @@
 import { studio } from '../../data/studio'
 import SectionTitle from '../ui/SectionTitle.vue'
 
-const contacts = [
+const leftContacts = [
   ['Мастер', studio.masterName],
   ['Город', studio.city],
   ['Район', studio.district],
   ['Ориентир', studio.landmark],
+]
+
+const rightContacts = [
   ['Адрес', studio.address],
   ['Формат', studio.addressNote],
   ['Телефон', studio.phone],
@@ -16,8 +19,8 @@ const contacts = [
 
 <template>
   <section id="contacts" class="section section--muted contacts-section">
-    <div class="container contacts-section__grid">
-      <div>
+    <div class="container">
+      <div class="contacts-section__intro">
         <SectionTitle
           eyebrow="Контакты"
           title="Где проходит приём"
@@ -41,9 +44,17 @@ const contacts = [
         </div>
 
         <dl>
-          <div v-for="[label, value] in contacts" :key="label">
-            <dt>{{ label }}</dt>
-            <dd>{{ value }}</dd>
+          <div class="contacts-section__column">
+            <div v-for="[label, value] in leftContacts" :key="label">
+              <dt>{{ label }}</dt>
+              <dd>{{ value }}</dd>
+            </div>
+          </div>
+          <div class="contacts-section__column">
+            <div v-for="[label, value] in rightContacts" :key="label">
+              <dt>{{ label }}</dt>
+              <dd>{{ value }}</dd>
+            </div>
           </div>
         </dl>
       </div>
@@ -52,10 +63,9 @@ const contacts = [
 </template>
 
 <style scoped>
-.contacts-section__grid {
+.contacts-section__intro {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
-  gap: clamp(1.25rem, 4vw, 2.5rem);
+  gap: 1rem;
 }
 
 .contacts-section__links {
@@ -85,6 +95,7 @@ const contacts = [
 }
 
 .contacts-section__card {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
   min-width: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -116,11 +127,17 @@ const contacts = [
 
 .contacts-section dl {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 4vw, 2rem);
   margin: 0;
 }
 
-.contacts-section dl div {
+.contacts-section__column {
+  display: grid;
+  gap: 1rem;
+}
+
+.contacts-section__column div {
   display: grid;
   grid-template-columns: minmax(96px, 140px) minmax(0, 1fr);
   gap: 1rem;
@@ -128,7 +145,7 @@ const contacts = [
   padding-bottom: 1rem;
 }
 
-.contacts-section dl div:last-child {
+.contacts-section__column div:last-child {
   border-bottom: 0;
   padding-bottom: 0;
 }
@@ -145,8 +162,8 @@ const contacts = [
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 900px) {
-  .contacts-section__grid {
+@media (max-width: 760px) {
+  .contacts-section dl {
     grid-template-columns: 1fr;
   }
 }
@@ -156,7 +173,7 @@ const contacts = [
     flex: 1 1 130px;
   }
 
-  .contacts-section dl div {
+  .contacts-section__column div {
     grid-template-columns: 1fr;
     gap: 0.25rem;
   }

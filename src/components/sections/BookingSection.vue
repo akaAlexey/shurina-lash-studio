@@ -10,6 +10,7 @@ interface BookingDate {
   value: string
   day: string
   weekday: string
+  isToday: boolean
 }
 
 const props = defineProps<{
@@ -31,6 +32,14 @@ const isSuccess = ref(false)
 
 const errors = reactive<Record<string, string>>({})
 
+const fakeBookedSlots: Record<string, string[]> = {
+  0: ['15:00'],
+  1: ['11:30', '15:00'],
+  2: ['10:00', '16:30'],
+  4: ['13:00', '18:00'],
+  6: ['11:30'],
+}
+
 const dates = computed<BookingDate[]>(() => {
   const formatter = new Intl.DateTimeFormat('ru-RU', {
     weekday: 'short',
@@ -51,14 +60,39 @@ const dates = computed<BookingDate[]>(() => {
       value: date.toISOString().slice(0, 10),
       weekday,
       day,
+      isToday: index === 0,
     }
   })
+})
+
+const disabledSlots = computed(() => {
+  const dateIndex = dates.value.findIndex((date) => date.value === selectedDate.value)
+  const booked = fakeBookedSlots[String(dateIndex)] ?? []
+  const unavailable = new Set(booked)
+
+  if (dateIndex === 0) {
+    const now = new Date()
+    const minutesNow = now.getHours() * 60 + now.getMinutes()
+
+    timeSlots.forEach((slot) => {
+      const [hours, minutes] = slot.split(':').map(Number)
+      if (hours * 60 + minutes <= minutesNow) {
+        unavailable.add(slot)
+      }
+    })
+  }
+
+  return Array.from(unavailable)
 })
 
 function validate() {
   errors.service = selectedService.value ? '' : 'Выберите услугу'
   errors.date = selectedDate.value ? '' : 'Выберите дату'
-  errors.time = selectedTime.value ? '' : 'Выберите время'
+  errors.time = selectedTime.value
+    ? disabledSlots.value.includes(selectedTime.value)
+      ? 'Это время уже недоступно'
+      : ''
+    : 'Выберите время'
   errors.name = name.value.trim() ? '' : 'Введите имя'
   errors.phone = phone.value.trim() ? '' : 'Введите телефон'
 
@@ -76,6 +110,7 @@ function submitBooking() {
 }
 
 function closeModal() {
+  isSuccess.value = false
   emit('close')
 }
 
@@ -89,9 +124,12 @@ watch(
   () => props.isOpen,
   (isOpen) => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
+    document.documentElement.style.overflow = isOpen ? 'hidden' : ''
 
     if (isOpen) {
       selectedService.value = props.initialServiceId ?? ''
+      selectedDate.value = dates.value[0]?.value ?? ''
+      selectedTime.value = ''
       isSuccess.value = false
       Object.keys(errors).forEach((key) => {
         errors[key] = ''
@@ -99,6 +137,12 @@ watch(
     }
   },
 )
+
+watch(selectedDate, () => {
+  if (disabledSlots.value.includes(selectedTime.value)) {
+    selectedTime.value = ''
+  }
+})
 
 watch(
   () => props.initialServiceId,
@@ -116,6 +160,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown)
   document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
 })
 </script>
 
@@ -136,13 +181,13 @@ onBeforeUnmount(() => {
           <span class="eyebrow">Онлайн-запись</span>
           <h2 id="booking-title">Запись на процедуру</h2>
           <p>
-            Выберите услугу, дату и время. Алина свяжется для подтверждения записи и
+            Выберите услугу, дату и время. Я свяжусь с вами для подтверждения записи и
             уточнения точного адреса студии.
           </p>
         </div>
 
         <div class="booking-modal__content">
-          <div class="booking-section__step">
+          <div v-if="!isSuccess" class="booking-section__step">
             <div class="booking-section__step-title">
               <span>1</span>
               <h3>Дата</h3>
@@ -151,16 +196,20 @@ onBeforeUnmount(() => {
             <small v-if="errors.date">{{ errors.date }}</small>
           </div>
 
-          <div class="booking-section__step">
+          <div v-if="!isSuccess" class="booking-section__step">
             <div class="booking-section__step-title">
               <span>2</span>
               <h3>Время</h3>
             </div>
-            <TimeSlotPicker v-model="selectedTime" :slots="timeSlots" />
+            <TimeSlotPicker
+              v-model="selectedTime"
+              :slots="timeSlots"
+              :disabled-slots="disabledSlots"
+            />
             <small v-if="errors.time">{{ errors.time }}</small>
           </div>
 
-          <div class="booking-section__step">
+          <div v-if="!isSuccess" class="booking-section__step">
             <div class="booking-section__step-title">
               <span>3</span>
               <h3>Контакты</h3>
@@ -176,11 +225,12 @@ onBeforeUnmount(() => {
             />
           </div>
 
-          <div v-if="isSuccess" class="booking-section__success" role="status">
+          <div v-if="isSuccess" class="booking-section__success" role="status" aria-live="polite">
             <strong>Спасибо! Заявка отправлена.</strong>
             <p>
-              Алина свяжется с вами для подтверждения записи и уточнения точного адреса студии.
+              Я свяжусь с вами для подтверждения записи и уточнения точного адреса студии.
             </p>
+            <button type="button" @click="closeModal">Закрыть</button>
           </div>
         </div>
       </div>
@@ -206,11 +256,27 @@ onBeforeUnmount(() => {
   width: min(100%, 920px);
   max-height: min(92vh, 980px);
   overflow-y: auto;
+  scrollbar-width: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   background: rgba(255, 250, 246, 0.98);
   box-shadow: 0 28px 80px rgba(52, 47, 50, 0.24);
   padding: clamp(1rem, 3vw, 1.8rem);
+}
+
+.booking-modal__dialog::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.booking-modal__dialog::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.booking-modal__dialog::-webkit-scrollbar-thumb {
+  border: 3px solid rgba(255, 248, 244, 0.98);
+  border-radius: 999px;
+  background: rgba(143, 90, 104, 0.38);
 }
 
 .booking-modal__close {
@@ -284,15 +350,36 @@ onBeforeUnmount(() => {
 }
 
 .booking-section__success {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  display: grid;
+  justify-items: start;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
   border-radius: var(--radius-lg);
-  background: #f3fff7;
+  background:
+    linear-gradient(135deg, rgba(243, 255, 247, 0.94), rgba(255, 248, 229, 0.82)),
+    #f3fff7;
   color: #245c38;
-  padding: 1.1rem 1.25rem;
+  box-shadow: 0 18px 44px rgba(36, 92, 56, 0.16);
+  padding: clamp(1.2rem, 4vw, 2rem);
 }
 
 .booking-section__success p {
   margin-top: 0.35rem;
   line-height: 1.6;
+}
+
+.booking-section__success button {
+  min-height: 44px;
+  border-radius: 999px;
+  background: #245c38;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  margin-top: 0.7rem;
+  padding: 0.8rem 1.2rem;
 }
 
 @media (max-width: 560px) {

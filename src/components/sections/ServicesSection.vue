@@ -33,6 +33,7 @@ defineEmits<{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+  align-items: stretch;
 }
 
 @media (max-width: 980px) {
