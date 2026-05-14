@@ -34,7 +34,9 @@ import SectionTitle from '../ui/SectionTitle.vue'
 
 @media (max-width: 620px) {
   .reviews-section__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 }
+
 </style>

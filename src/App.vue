@@ -20,7 +20,7 @@ function openBooking(serviceId = '') {
 </script>
 
 <template>
-  <AppHeader @book="openBooking()" />
+  <AppHeader />
   <main>
     <HeroSection @book="openBooking()" />
     <AboutSection />

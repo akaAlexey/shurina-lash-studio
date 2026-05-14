@@ -9,19 +9,10 @@ const links = [
   { href: '#contacts', label: 'Контакты' },
 ]
 
-const emit = defineEmits<{
-  book: []
-}>()
-
 const isMenuOpen = ref(false)
 
 function closeMenu() {
   isMenuOpen.value = false
-}
-
-function openBooking() {
-  closeMenu()
-  emit('book')
 }
 </script>
 
@@ -50,7 +41,6 @@ function openBooking() {
         <a v-for="link in links" :key="link.href" :href="link.href" @click="closeMenu">
           {{ link.label }}
         </a>
-        <button class="app-header__book" type="button" @click="openBooking">Запись</button>
       </nav>
     </div>
   </header>
@@ -61,9 +51,28 @@ function openBooking() {
   position: sticky;
   z-index: 20;
   top: 0;
-  border-bottom: 1px solid rgba(234, 222, 215, 0.8);
-  background: rgba(255, 250, 246, 0.86);
+  border-bottom: 1px solid rgba(234, 222, 215, 0.72);
+  background:
+    linear-gradient(
+      115deg,
+      rgba(255, 248, 244, 0.9),
+      rgba(244, 222, 225, 0.9),
+      rgba(255, 246, 226, 0.88),
+      rgba(247, 229, 236, 0.9),
+      rgba(255, 248, 244, 0.9)
+    );
+  background-size: 320% 320%;
+  animation: headerGradientFlow 18s ease-in-out infinite;
   backdrop-filter: blur(18px);
+  box-shadow: 0 10px 34px rgba(83, 57, 61, 0.06);
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(143, 90, 104, 0.26), transparent);
 }
 
 .app-header__inner {
@@ -91,42 +100,43 @@ function openBooking() {
 }
 
 .app-header__nav a {
+  border: 1px solid rgba(143, 90, 104, 0.14);
   border-radius: 999px;
-  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.28);
+  color: #715d64;
   font-size: 0.92rem;
   font-weight: 700;
   padding: 0.55rem 0.8rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transition:
     color 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.app-header__book {
-  min-height: 40px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
-  color: #fff;
-  cursor: pointer;
-  font-weight: 800;
-  padding: 0.55rem 0.95rem;
-  box-shadow: 0 10px 22px rgba(151, 86, 104, 0.22);
-  transition:
-    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-.app-header__book:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(151, 86, 104, 0.28);
-}
-
 .app-header__nav a:hover {
-  color: var(--color-primary-dark);
-  background: rgba(207, 143, 162, 0.12);
+  border-color: rgba(143, 90, 104, 0.26);
+  color: #7f4658;
+  background: rgba(255, 250, 243, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 8px 18px rgba(127, 70, 88, 0.08);
 }
 
 .app-header__toggle {
   display: none;
+}
+
+@keyframes headerGradientFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @media (max-width: 900px) {
@@ -183,20 +193,22 @@ function openBooking() {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    border-color: rgba(143, 90, 104, 0.16);
+    background: rgba(255, 255, 255, 0.52);
     font-size: 0.95rem;
     padding: 0.7rem 0.85rem;
-  }
-
-  .app-header__book {
-    width: 100%;
-    min-height: 44px;
-    margin-top: 0.25rem;
   }
 }
 
 @media (max-width: 420px) {
   .app-header__logo {
     font-size: 0.96rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-header {
+    animation: none;
   }
 }
 </style>

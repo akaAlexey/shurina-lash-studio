@@ -31,7 +31,11 @@ withDefaults(defineProps<Props>(), {
   cursor: pointer;
   font-weight: 700;
   line-height: 1;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.95rem 1.35rem;
+  text-align: center;
+  white-space: normal;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,

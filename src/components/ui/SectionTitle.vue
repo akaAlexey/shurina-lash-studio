@@ -40,13 +40,14 @@ defineProps<{
   }
 
   .section-title h2 {
-    font-size: clamp(1.85rem, 9vw, 2.45rem);
+    font-size: clamp(1.55rem, 7.8vw, 2.05rem);
+    line-height: 1.08;
   }
 
   .section-title p {
     margin-top: 0.75rem;
-    font-size: 0.98rem;
-    line-height: 1.65;
+    font-size: 0.92rem;
+    line-height: 1.58;
   }
 }
 </style>

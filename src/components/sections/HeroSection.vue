@@ -53,6 +53,11 @@ defineEmits<{
   font-size: clamp(2.05rem, 5vw, 4.45rem);
   line-height: 1.04;
   max-width: 850px;
+  overflow-wrap: anywhere;
+}
+
+.hero-section__content {
+  min-width: 0;
 }
 
 .hero-section__inline-image {
@@ -144,17 +149,19 @@ defineEmits<{
   }
 
   .hero-section__content h1 {
-    font-size: clamp(1.85rem, 9vw, 2.35rem);
+    font-size: clamp(1.48rem, 7.15vw, 1.98rem);
+    line-height: 1.08;
   }
 
   .hero-section__content p {
-    font-size: 1rem;
+    font-size: 0.96rem;
+    line-height: 1.68;
   }
 
   .hero-section__inline-image {
     display: block;
     float: right;
-    width: min(38vw, 142px);
+    width: clamp(96px, 31vw, 128px);
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 18px;
@@ -192,6 +199,20 @@ defineEmits<{
 }
 
 @media (max-width: 360px) {
+  .hero-section__content h1 {
+    font-size: clamp(1.32rem, 6.6vw, 1.52rem);
+  }
+
+  .hero-section__content p {
+    font-size: 0.92rem;
+  }
+
+  .hero-section__inline-image {
+    width: 92px;
+    border-radius: 16px;
+    margin-left: 0.75rem;
+  }
+
   .hero-section__facts li {
     flex-basis: 100%;
   }
