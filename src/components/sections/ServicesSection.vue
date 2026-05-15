@@ -33,8 +33,15 @@ const serviceDecorImages = [
         title="Услуги"
         text="Прозрачная стоимость и спокойный темп работы: Алина закладывает достаточно времени на консультацию, подготовку и аккуратную проработку ресничного ряда."
       />
-      <div class="services-section__decor-strip" aria-hidden="true">
-        <img v-for="image in serviceDecorImages" :key="image" :src="image" alt="" />
+      <div class="services-section__decor-cloud" aria-hidden="true">
+        <span
+          v-for="(image, index) in serviceDecorImages"
+          :key="image"
+          class="services-section__decor-item"
+          :class="`services-section__decor-item--${index + 1}`"
+        >
+          <img :src="image" alt="" />
+        </span>
       </div>
 
       <div v-if="popularService" class="services-section__featured">
@@ -76,47 +83,64 @@ const serviceDecorImages = [
   margin-bottom: 26px;
 }
 
-.services-section__decor-strip {
+.services-section__decor-cloud {
   position: absolute;
   z-index: 0;
-  top: 0.35rem;
-  right: clamp(0.75rem, 3vw, 2rem);
-  display: grid;
-  grid-template-columns: repeat(3, 72px);
-  gap: 0.55rem;
+  inset: 0;
   pointer-events: none;
 }
 
-.services-section__decor-strip img {
-  width: 72px;
-  height: 72px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 18px;
-  object-fit: cover;
-  opacity: 0.62;
+.services-section__decor-item {
+  position: absolute;
+  display: block;
+  width: clamp(84px, 7.8vw, 116px);
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 22px;
+  background: rgba(255, 248, 244, 0.5);
   box-shadow:
-    0 16px 34px rgba(83, 57, 61, 0.12),
-    0 0 0 1px rgba(143, 90, 104, 0.08);
+    0 18px 36px rgba(83, 57, 61, 0.16),
+    0 0 0 1px rgba(143, 90, 104, 0.12);
+  opacity: 0.84;
+  overflow: hidden;
 }
 
-.services-section__decor-strip img:nth-child(1) {
-  transform: rotate(-7deg);
+.services-section__decor-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.services-section__decor-strip img:nth-child(2) {
-  transform: translateY(0.8rem) rotate(5deg);
+.services-section__decor-item--1 {
+  top: 0.25rem;
+  right: 17.5rem;
+  transform: rotate(-8deg);
 }
 
-.services-section__decor-strip img:nth-child(3) {
-  transform: translateY(-0.35rem) rotate(8deg);
+.services-section__decor-item--2 {
+  top: 4.7rem;
+  right: 8.8rem;
+  transform: rotate(6deg);
 }
 
-.services-section__decor-strip img:nth-child(4) {
-  transform: translate(1.1rem, -0.25rem) rotate(-4deg);
+.services-section__decor-item--3 {
+  top: 1.25rem;
+  right: 0.75rem;
+  transform: rotate(10deg);
 }
 
-.services-section__decor-strip img:nth-child(5) {
-  transform: translate(0.6rem, 0.8rem) rotate(6deg);
+.services-section__decor-item--4 {
+  top: 12.3rem;
+  left: clamp(0.5rem, 3vw, 2.2rem);
+  width: clamp(76px, 7vw, 104px);
+  transform: rotate(-5deg);
+}
+
+.services-section__decor-item--5 {
+  top: 18.5rem;
+  right: clamp(0.5rem, 3vw, 2rem);
+  width: clamp(78px, 7.2vw, 108px);
+  transform: rotate(7deg);
 }
 
 .services-section__grid {
@@ -129,21 +153,50 @@ const serviceDecorImages = [
 }
 
 @media (max-width: 980px) {
-  .services-section__decor-strip {
+  .services-section__decor-cloud {
     position: relative;
-    top: auto;
-    right: auto;
-    display: flex;
-    justify-content: center;
-    gap: 0.55rem;
-    margin: -0.45rem 0 1rem;
+    min-height: 104px;
+    margin: -0.2rem 0 0.7rem;
   }
 
-  .services-section__decor-strip img {
-    width: clamp(48px, 8vw, 64px);
-    height: clamp(48px, 8vw, 64px);
-    border-radius: 15px;
-    opacity: 0.72;
+  .services-section__decor-item {
+    position: absolute;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: clamp(66px, 10vw, 88px);
+    border-radius: 18px;
+    opacity: 0.82;
+  }
+
+  .services-section__decor-item--1 {
+    top: 0.6rem;
+    left: 7%;
+    transform: rotate(-8deg);
+  }
+
+  .services-section__decor-item--2 {
+    top: 2.1rem;
+    left: 24%;
+    transform: rotate(5deg);
+  }
+
+  .services-section__decor-item--3 {
+    top: 0;
+    left: 43%;
+    transform: rotate(7deg);
+  }
+
+  .services-section__decor-item--4 {
+    top: 1.8rem;
+    right: 22%;
+    transform: rotate(-5deg);
+  }
+
+  .services-section__decor-item--5 {
+    top: 0.75rem;
+    right: 6%;
+    transform: rotate(8deg);
   }
 
   .services-section__grid {
@@ -160,16 +213,43 @@ const serviceDecorImages = [
     margin-bottom: 0.65rem;
   }
 
-  .services-section__decor-strip {
-    gap: 0.42rem;
-    justify-content: flex-start;
-    margin-bottom: 0.85rem;
+  .services-section__decor-cloud {
+    min-height: 92px;
+    margin: -0.1rem 0 0.65rem;
   }
 
-  .services-section__decor-strip img {
-    width: clamp(42px, 13vw, 54px);
-    height: clamp(42px, 13vw, 54px);
-    border-radius: 13px;
+  .services-section__decor-item {
+    width: clamp(52px, 15vw, 64px);
+    border-radius: 15px;
+    opacity: 0.86;
+    box-shadow:
+      0 12px 24px rgba(83, 57, 61, 0.14),
+      0 0 0 1px rgba(143, 90, 104, 0.1);
+  }
+
+  .services-section__decor-item--1 {
+    top: 0.55rem;
+    left: 0;
+  }
+
+  .services-section__decor-item--2 {
+    top: 2rem;
+    left: 20%;
+  }
+
+  .services-section__decor-item--3 {
+    top: 0.15rem;
+    left: 42%;
+  }
+
+  .services-section__decor-item--4 {
+    top: 1.9rem;
+    right: 18%;
+  }
+
+  .services-section__decor-item--5 {
+    top: 0.7rem;
+    right: 0;
   }
 
   .services-section__grid {
