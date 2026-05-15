@@ -1,5 +1,6 @@
 import lashFlatlay from '../assets/images/tools/lash-flatlay.webp'
 import toolsTray from '../assets/images/tools/tools-tray.webp'
+import cabinetPreparation from '../assets/images/studio/cabinet-preparation.png'
 import lashesNatural from '../assets/images/works/lashes-natural.webp'
 import lashesProcess from '../assets/images/works/lashes-process.webp'
 import lashesVolume from '../assets/images/works/lashes-volume.webp'
@@ -52,6 +53,14 @@ export const galleryItems: GalleryItem[] = [
     description: 'Подбор изгиба, длины и толщины под форму глаз клиента.',
     badge: 'инструменты',
     image: lashFlatlay,
+    position: 'center',
+  },
+  {
+    id: 6,
+    title: 'Подготовка кабинета',
+    description: 'Чистое рабочее место, мягкий свет и материалы под рукой перед записью.',
+    badge: 'комфорт',
+    image: cabinetPreparation,
     position: 'center',
   },
 ]

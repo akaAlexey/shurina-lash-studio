@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import clientArrival from '../../assets/images/studio/client-arrival.png'
 import { studio } from '../../data/studio'
 import SectionTitle from '../ui/SectionTitle.vue'
 
@@ -21,21 +22,27 @@ const rightContacts = [
   <section id="contacts" class="section section--muted contacts-section">
     <div class="container">
       <div class="contacts-section__intro">
-        <SectionTitle
-          eyebrow="Контакты"
-          title="Где проходит приём"
-          text="Студия находится в районе улицы Боевой, рядом с удобными городскими маршрутами. Точный адрес отправляется после подтверждения записи."
-        />
-        <div class="contacts-section__links">
-          <a class="social-link social-link--telegram" :href="studio.telegram" target="_blank" rel="noreferrer">
-            <span>TG</span>
-            <strong>Telegram</strong>
-          </a>
-          <a class="social-link social-link--vk" :href="studio.vk" target="_blank" rel="noreferrer">
-            <span>VK</span>
-            <strong>ВКонтакте</strong>
-          </a>
+        <div class="contacts-section__copy">
+          <SectionTitle
+            eyebrow="Контакты"
+            title="Где проходит приём"
+            text="Студия находится в районе улицы Боевой, рядом с удобными городскими маршрутами. Точный адрес отправляется после подтверждения записи."
+          />
+          <div class="contacts-section__links">
+            <a class="social-link social-link--telegram" :href="studio.telegram" target="_blank" rel="noreferrer">
+              <span>TG</span>
+              <strong>Telegram</strong>
+            </a>
+            <a class="social-link social-link--vk" :href="studio.vk" target="_blank" rel="noreferrer">
+              <span>VK</span>
+              <strong>ВКонтакте</strong>
+            </a>
+          </div>
         </div>
+        <figure class="contacts-section__visual">
+          <img :src="clientArrival" alt="Вход в уютный кабинет мастера" />
+          <figcaption>Приём по записи в частном кабинете</figcaption>
+        </figure>
       </div>
 
       <div class="contacts-section__card">
@@ -71,7 +78,17 @@ const rightContacts = [
 <style scoped>
 .contacts-section__intro {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+  gap: clamp(1.2rem, 4vw, 2.4rem);
+  align-items: end;
+}
+
+.contacts-section__copy {
+  min-width: 0;
+}
+
+.contacts-section__copy :deep(.section-title) {
+  margin-bottom: 1.2rem;
 }
 
 .contacts-section__links {
@@ -131,6 +148,39 @@ const rightContacts = [
   box-shadow:
     inset 0 0 0 1px rgba(143, 90, 104, 0.2),
     0 16px 34px rgba(83, 57, 61, 0.12);
+}
+
+.contacts-section__visual {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(234, 219, 211, 0.82);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 46px rgba(83, 57, 61, 0.13);
+  aspect-ratio: 16 / 12;
+  margin: 0;
+}
+
+.contacts-section__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+.contacts-section__visual figcaption {
+  position: absolute;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 248, 244, 0.82);
+  color: var(--color-primary-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.55rem 0.7rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
 }
 
 .contacts-section__card {
@@ -211,6 +261,14 @@ const rightContacts = [
 }
 
 @media (max-width: 760px) {
+  .contacts-section__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .contacts-section__visual {
+    aspect-ratio: 16 / 9;
+  }
+
   .contacts-section dl {
     grid-template-columns: 1fr;
   }
@@ -224,6 +282,19 @@ const rightContacts = [
   .contacts-section__column div {
     grid-template-columns: 1fr;
     gap: 0.25rem;
+  }
+
+  .contacts-section__visual {
+    border-radius: 20px;
+    aspect-ratio: 16 / 8.8;
+  }
+
+  .contacts-section__visual figcaption {
+    left: 0.55rem;
+    right: 0.55rem;
+    bottom: 0.55rem;
+    font-size: 0.68rem;
+    padding: 0.42rem 0.55rem;
   }
 }
 </style>
